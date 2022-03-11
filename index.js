@@ -12,9 +12,9 @@ exports.handler = async (event, context, callback) => {
     console.log('name', filename, 'ext', ext);
 
     try {
-        const s3Object = await s3.getObject({ Bucket, Key }).promise(); // 버퍼로 가져오기
+        const s3Object = await s3.getObject({ Bucket, Key }).promise(); // 버퍼로 가져오기 // 이미 original에 저장된 파일 가져옴..?
         console.log('original', s3Object.Body.length)
-        const resizedImage = await sharp(s3Object.Body) // 리사이징
+        const resizedImage = await sharp(s3Object.Body) // 리사이징 // sharp 모듈로 리사이즈 쉽게하기
             .resize(200, 200, { fit: 'inside' })
             .toFormat(requiredFormat)
             .toBuffer();
